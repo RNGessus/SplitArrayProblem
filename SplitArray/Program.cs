@@ -10,7 +10,6 @@ namespace SplitArray
     {
         static void Main(string[] args)
         {
-            //int[] A = { 1, 7, 9, 11, 15, 29 }; 
             int[] A = { 1, 2, 3, 4, 5, 6, 7, 8 }; 
 
             // for manual input
@@ -38,25 +37,27 @@ namespace SplitArray
         private static bool splitArray(int[] array)
         {
             int b,B,A,a;
-            /* if A=sum(a) B=sum(b) C=sum(c) a=A.length b=B.length c=C.length and B+C=A b+c=a
-            then B/b==C/c => B/b=(A-B)/(a-b) => B*a-B*b=A*b-B*b => B=A*b/a 
-            A is an integer sum => B is an integer => A*b%a==0
+            /* if A is the sum of the given array and B and C are the sum of the splitted arrays
+             and a,b and c are the lengths of the arrays
+             then if the splitted arrays have the same average 
+             then B/b==C/c => B/b=(A-B)/(a-b) => B*a-B*b=A*b-B*b => B=A*b/a 
+             A is an integer sum => B is an integer sum => A*b%a==0
             */
             Array.Sort(array);
             A=sum(array);
             a=array.Length;
-            for(int i = 1; i <= a/2; i++)
+            for(int i = 1; i <= a/2; i++) //checking the lengths from 1 to a/2 so we will obtain the shorter array that is !=null
             {
-                if (A * i % a == 0) //obtain targeted sum + length
+                if (A * i % a == 0) //obtain targeted sum + length 
                 {
                     b = i;   // first array length
                     B = A * i / a; // first array sum
-                    return rec(0, B, array, b, 0, a - 1); //checking if it's possible to obtain the sum
+                    if(rec(0, B, array, b, 0, a - 1)) return true; //checking if it's possible to obtain the sum
                     
                     /*
                     int[] finalarray = {};
-                    return rec(0, B, array, b,0, a - 1, finalarray);
-                    */ //for displaying the splitted array in console
+                    if(rec(0, B, array, b,0, a - 1, finalarray)) return true;
+                    */ //for displaying the first splitted array in console
                 }
             }
             return false;
@@ -74,7 +75,7 @@ namespace SplitArray
             }
             return rec(current_sum , target_sum, array, b,c, index - 1);
         }
-
+        
         private static bool rec(int current_sum, int target_sum, int[] array, int b, int c, int index, int[] finalarray)
         {
             if (b == c && current_sum == target_sum)
