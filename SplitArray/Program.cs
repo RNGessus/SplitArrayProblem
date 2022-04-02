@@ -10,7 +10,7 @@ namespace SplitArray
     {
         static void Main(string[] args)
         {
-            int[] A = { 1, 2, 3, 4, 5, 6, 7, 8 }; 
+            int[] A = { 1, 2, 3, 4, 5, 6, 7, 8 ,11,9}; 
 
             // for manual input
             /*
@@ -53,11 +53,12 @@ namespace SplitArray
                     b = i;   // first array length
                     B = A * i / a; // first array sum
                     if(rec(0, B, array, b, 0, a - 1)) return true; //checking if it's possible to obtain the sum
-                    
+
+                    //for displaying the splitted arrays in console
                     /*
                     int[] finalarray = {};
                     if(rec(0, B, array, b,0, a - 1, finalarray)) return true;
-                    */ //for displaying the first splitted array in console
+                    */
                 }
             }
             return false;
@@ -75,19 +76,30 @@ namespace SplitArray
             }
             return rec(current_sum , target_sum, array, b,c, index - 1);
         }
-        
+        // this function has an extra parameter the display the splitted arrays
         private static bool rec(int current_sum, int target_sum, int[] array, int b, int c, int index, int[] finalarray)
         {
             if (b == c && current_sum == target_sum)
             {
+                Array.Sort(finalarray);
+                Console.Write("{");
                 for (int i = 0; i < finalarray.Length; i++)
                 {
-                    Console.Write(finalarray[i] + " ");
+                    Console.Write(finalarray[i] + ",");
                 }
+                Console.Write("\b} {");
+                int j = 0;
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if(array[i] == finalarray[j]) { j++; }
+                    else Console.Write(array[i] + ",");
+                }
+                Console.Write("\b}");Console.WriteLine();
                 return true;
             }
             if (b == c && current_sum != target_sum) return false;
             if (index < 0) return false;
+
             for (int i = index; i >= 0; i--)
             {
                 if (current_sum + array[i] <= target_sum)
