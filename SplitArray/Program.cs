@@ -10,7 +10,7 @@ namespace SplitArray
     {
         static void Main(string[] args)
         {
-            int[] A = { 1, 2, 3, 4, 5, 6, 7, 8 ,11,9}; 
+            int[] A = { 11, 22, 31, 42, 4}; 
 
             // for manual input
             /*
@@ -52,13 +52,13 @@ namespace SplitArray
                 {
                     b = i;   // first array length
                     B = A * i / a; // first array sum
-                    if(rec(0, B, array, b, 0, a - 1)) return true; //checking if it's possible to obtain the sum
+                    //if(rec(0, B, array, b, 0, a - 1)) return true; //checking if it's possible to obtain the sum
 
                     //for displaying the splitted arrays in console
-                    /*
+                   
                     int[] finalarray = {};
                     if(rec(0, B, array, b,0, a - 1, finalarray)) return true;
-                    */
+                    
                 }
             }
             return false;
